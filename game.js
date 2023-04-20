@@ -47,6 +47,17 @@ function buttonClicked(userChosenColour) {
     
 
 
+    
+    //check if the user has clicked on the right button 
+    if (userChosenColour === gamePattern[currentNumberOfClicks]){
+
+        
+        correctClick(userChosenColour);
+
+
+
+    }
+
     // if the user has clicked on the wrong button
     else{
 
@@ -104,6 +115,22 @@ function wrongClick(){
 
 function correctClick(colorByUser) {
     console.log("you clicked on the correct button")
+
+    //add the clicked button color to the array named "userClickedPattern"
+    userClickedPattern.push(colorByUser);
+
+    currentNumberOfClicks++
+
+    //if the user has clicked on the right colors right amount of time, proceed to the next level
+    if (currentNumberOfClicks === gamePattern.length){
+        currentNumberOfClicks = 0
+        
+        //wait 1 second and proceed to the next sequence
+        setTimeout(function () {
+            nextSequence()
+        }, 1000);
+        
+    }
 
     //play the sound that corresponds to the color of the clicked button
     playSound(colorByUser)
