@@ -11,8 +11,6 @@ var currentNumberOfClicks = 0
 function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4)
 
-    console.log(randomNumber)
-
     chooseColor(randomNumber) 
 
     //increase the level 
@@ -25,10 +23,9 @@ function nextSequence() {
 
 function chooseColor(number) {
     var randomChosenColour = buttonColours[number]
-    console.log("chosen color: " + randomChosenColour)
-    
+
+    //append the chosen color to the gamepattern array
     gamePattern.push(randomChosenColour)
-    console.log(gamePattern)
 
     //play the sound of the chosen color
     playSound(randomChosenColour)
@@ -106,6 +103,7 @@ function wrongClick(){
     $("h1").text("Game Over, Press Any Key to Restart");
 
     //set the level to 0
+    //so the user can start from the beginning after clicking on a button
     level = 0 
 
     //empty the contents of two arrays, gamepattern and userclickedpattern
@@ -146,8 +144,6 @@ function correctClick(colorByUser) {
 $(".btn").click(function (){
     //get the color of the clicked button through its id
     var buttonColor = $(this).attr("id"); 
-
-    console.log(buttonColor)
     
     buttonClicked(buttonColor)
 })
