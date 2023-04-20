@@ -6,6 +6,8 @@ var buttonColours = ["red", "blue", "green", "yellow"]
 
 var level = 0
 
+var currentNumberOfClicks = 0
+
 function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4)
 
@@ -43,34 +45,15 @@ function buttonClicked(userChosenColour) {
         return
     }
     
-    //add the clicked button color to the array named "userClickedPattern"
-    userClickedPattern.push(userChosenColour)
 
-    //console log
-    console.log(userClickedPattern)
-
-    
-    //check if the user has clicked on the right button 
-    if (userChosenColour === gamePattern[(level-1)]){
-
-        console.log("you clicked on the right button")
-
-        //play the sound that corresponds to the color of the clicked button
-        playSound(userChosenColour)
-
-        //flash the button with the corresponding color
-        animatePress(userChosenColour)
-    }
 
     // if the user has clicked on the wrong button
     else{
-        console.log("you clicked on the wrong button")
 
-        playSound("wrong")
-
+        wrongClick()
+        
     }
 
-    
 
 
 }
@@ -87,12 +70,47 @@ function animatePress(currentColour) {
 
     //add the class "pressed", which we define in style.css
     $(`#${currentColour}`).addClass("pressed")
-
     //wait 100 miliseconds AND
     setTimeout(function () {
         //remove the class "pressed" after 100 miliseconds
         $(`#${currentColour}`).removeClass("pressed")
     }, 100);
+
+}
+
+function wrongClick(){
+    console.log("you clicked on the wrong button")
+
+    playSound("wrong")
+
+    //to add an animation effect, add the class "gameover" to body for 100 miliseconds
+    $("body").addClass("game-over")
+    //wait 100 miliseconds AND
+    setTimeout(function () {
+        //remove the class "pressed" after 100 miliseconds
+        $("body").removeClass("game-over")
+    }, 100);
+
+    //change the text of the header to announce game over
+    $("h1").text("Game Over, Press Any Key to Restart");
+
+    //set the level to 0
+    level = 0 
+
+    //empty the contents of two arrays, gamepattern and userclickedpattern
+    userClickedPattern = []
+    gamePattern = []
+}
+
+function correctClick(colorByUser) {
+    console.log("you clicked on the correct button")
+
+    //play the sound that corresponds to the color of the clicked button
+    playSound(colorByUser)
+
+    //flash the button with the corresponding color
+    animatePress(colorByUser)
+    
 
 }
 
