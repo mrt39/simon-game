@@ -34,7 +34,7 @@ function chooseColor(number) {
     playSound(randomChosenColour)
 
     //flash the button with the corresponding color
-    animatePress(randomChosenColour)
+    $(`#${randomChosenColour}`).fadeOut(100).fadeIn(100)
 
 }
 
